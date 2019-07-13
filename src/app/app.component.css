@@ -1,0 +1,17 @@
+.custom {
+    --wired-toggle-off-color: red;
+    --wired-toggle-on-color: green;
+}
+
+.red{
+  color :red;
+}
+
+.spinner{
+  color: red;
+}
+
+.submit{
+  margin-left:50px;
+  margin-right:100px;
+}

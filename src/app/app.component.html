@@ -1,8 +1,21 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Hand drawn form using WiredJs
+    Hand drawn form using WiredJs in Angular
   </h1>
+</div>
+
+<div [hidden]="!showSuccess">
+  <h2 style="color: green">Sign-up Successful! </h2>
+  <div>
+    {{model | json}}
+  </div>
+  <br>
+</div>
+
+
+<div [hidden]="!showSpinner">
+  <wired-spinner #spinner class="spinner" spinning duration="1000"></wired-spinner>
 </div>
 
 <wired-card elevation="3">
@@ -11,7 +24,7 @@
     <div>
       <label>
         First Name:
-        <wired-input #firstName placeholder="Enter name">
+        <wired-input #firstName placeholder="Enter first name">
         </wired-input>
       </label>
     </div>
@@ -32,8 +45,37 @@
       </div>
     </div>
 
-    <br>
-    <wired-button (click)="signup()" elevation="5">Sign up</wired-button>
+    <div>
+      <h4>Send me update:</h4>
+      <wired-combo id="combo" [selected]="model.updateFrequency" (selected)="selectFrequency($event)">
+        <wired-item value="daily">Daily</wired-item>
+        <wired-item value="monthly">Monthly</wired-item>
+        <wired-item value="quarterly">Quarterly</wired-item>
+      </wired-combo>
+    </div>
+    <div>
+      <h4>Update via SMS?</h4>
+      <wired-toggle class="custom" checked (change)="setSMSPermission($event)"></wired-toggle>
+    </div>
 
+    <div>
+      <h4>Gender:</h4>
+      <wired-radio-group selected="female" role="radiogroup" (change)="setGender($event)">
+        <wired-radio name="male">Male</wired-radio>
+        <wired-radio name="female">Female</wired-radio>
+        <wired-radio name="other">Other</wired-radio>
+      </wired-radio-group>
+    </div>
+    <br>
+
+    <div>
+      <wired-button class="submit" (click)="signup()" elevation="5">Sign up</wired-button>
+      <wired-fab class="red" id="btn2" (click)="cancel()">close</wired-fab>
+    </div>
+
+  </div>
+  <br>
+  <div>
+    <wired-progress #progress value="0" min="0" max="100"></wired-progress>
   </div>
 </wired-card>

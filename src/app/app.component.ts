@@ -13,12 +13,18 @@ export class AppComponent {
   model: SignUpModel = new SignUpModel();
 
   @ViewChild("firstName", { static: false }) firstName: ElementRef;
+  @ViewChild("progress", { static: false }) progress: ElementRef;
 
   lastName: string = 'Chavan';
 
   allSubscriptions: Array<SubscriptionModel>;
 
+  // @ViewChild("spinner", { static: false }) spinner: ElementRef;
+  showSpinner = false;
+  showSuccess = false;
+
   ngOnInit() {
+
     this.allSubscriptions = [];
     let subscription = new SubscriptionModel();
     subscription.name = "Google";
@@ -33,6 +39,8 @@ export class AppComponent {
     subscription.name = "Amazon";
     this.allSubscriptions.push(subscription);
 
+    this.model.updateFrequency = "monthly";
+
   }
   setLastName(event: any) {
     this.lastName = event.target.value;
@@ -42,13 +50,43 @@ export class AppComponent {
     subscription.selected = event.target.checked;
   }
 
+  selectFrequency(event: any) {
+    this.model.updateFrequency = event.target.value.value;
+  }
+
+  setSMSPermission(event: any) {
+    this.model.canSendSMS = event.target.checked;
+  }
+
+  setGender(event: any) {
+    this.model.gender = event.target.name;
+  }
+
   signup(_firstName: WiredInput) {
+    this.showSpinner = true;
     this.model.firstName = (this.firstName.nativeElement as WiredInput).value;
     this.model.lastName = this.lastName;
 
     this.model.selectedSubscriptions = this.allSubscriptions.filter(sub => sub.selected);
 
+    setTimeout(() => {
+      this.showSpinner = false;
+      this.showSuccess = true;
+    }, 5000);
+
+    var token = setInterval(() => {
+      if (this.progress.nativeElement.value == 100) {
+        clearInterval(token);
+      }
+      else {
+        this.progress.nativeElement.value = this.progress.nativeElement.value + 10;
+      }
+    }, 500);
+
     console.log(this.model);
   }
 
+  cancel() {
+    alert("Canceling signup...");
+  }
 }
