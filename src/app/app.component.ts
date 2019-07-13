@@ -62,7 +62,7 @@ export class AppComponent {
     this.model.gender = event.target.name;
   }
 
-  signup(_firstName: WiredInput) {
+  signup() {
     this.showSpinner = true;
     this.model.firstName = (this.firstName.nativeElement as WiredInput).value;
     this.model.lastName = this.lastName;
