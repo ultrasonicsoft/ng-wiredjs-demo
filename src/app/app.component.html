@@ -1,8 +1,39 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
-    Hand drawn form using Wiredjs
+    Hand drawn form using WiredJs
   </h1>
 </div>
-<wired-input placeholder="Enter name"></wired-input>
-<wired-button>Click Me</wired-button>
+
+<wired-card elevation="3">
+  <div>
+    <h3>Sign-Up form</h3>
+    <div>
+      <label>
+        First Name:
+        <wired-input #firstName placeholder="Enter name">
+        </wired-input>
+      </label>
+    </div>
+
+    <div>
+      <label>
+        Last Name:
+        <wired-input placeholder="Enter last name" [attr.value]="lastName" (change)="setLastName($event)">
+        </wired-input>
+      </label>
+    </div>
+
+    <div>
+      <h4>Select your interested subscriptions:</h4>
+      <div *ngFor="let subscription of allSubscriptions">
+        <wired-checkbox [checked]="subscription.selected" (change)="updateSubscription($event,subscription)">
+          {{subscription.name}}</wired-checkbox>
+      </div>
+    </div>
+
+    <br>
+    <wired-button (click)="signup()" elevation="5">Sign up</wired-button>
+
+  </div>
+</wired-card>
