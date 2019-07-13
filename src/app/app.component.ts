@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { WiredButton, WiredInput } from "wired-elements"
 
 @Component({
   selector: 'app-root',
